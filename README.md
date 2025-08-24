@@ -50,9 +50,64 @@
 > | Privileged | Follow principle of least privileged |
 
 
+### Vault Architecture
+#### Vault Components
+**Storage Backends**
+- Configures location for storage of vault data
+- Defined in main vault configuration file
+- Data is encrypted in transit (TLS) and at rest using AES256
+- Some storages are for high availability and others for better management and data protection
+- Only one storage backend per vault cluster
 
+**Secrets Engines**
+- Manages secrets
+- Secret engines can store, generate and encrypt data
+- Many engines can connect to other services to generate dynamic credentials on demand
+- There can be multiple instances of same type of secret engine
+- Secret engines are mounted at path and all interactions are done with the path itself
 
+**Authentication methods**
+- Manages authentication and manages identities
+- Responsible for assigning identity and policies to users
+- Multiple authentication methods can be enabled 
+- There are 2 types of authentication methods classes: human and machine
+- Once authenticated, vault issues a token to the client or user to make all subsequent vault requests until TTL
+- Each token has a policy and a TTL
+- Default authentication method for vault is also token based
 
+**Audit devices**
+- Keeps detailed log for all requests and responses to vault
+- Audit log is formatted using json
+- Sensitive info is hashed before logging
+- There can be multiple audit devices enabled
+- Vault required at least one audit device to write the log before completing the vault request - if enabled
+- Prefers safety over availability
 
+#### The Encryption Barrier
+- The diagram can be seen at [Vault Docs](https://developer.hashicorp.com/vault/docs/about-vault/how-vault-works#the-encryption-barrier)
+
+**Vault Paths**
+- Everything in vault is path based
+- The path prefix tells vault which component a request should be routed
+- Secret engines, authentication methods and audit devices are mounted at paths
+- Paths available are dependent on features that are enabled in the vault
+- System backend is the default backend in vault which is mounted at `/sys` endpoint
+- Every vault component has its own default path
+
+#### Vault Data Protection
+- Master key protects encryption key
+- Encryption key protects vault data
+- Encryption key is stored in vault node memory
+
+**Master Key**
+- Used to encrypt and decrypt encryption key
+- Never written to storage when using traditional unseal mechanism
+- Written to core/master (storage backend) when using `auto unseal`
+
+**Encryption Key**
+- Used to encrypt and decrypt the vault data written to storage backend
+- Encrypted by the master key
+- Stored alongside the data in a keyring on the storage backend
+- Can be easily rotated
 
 <!-- --- Authentication generates a token for access for a ttl, once token is issued it is used for authentication until it is expired, permissions or the scope of token is also associated with the token -->
