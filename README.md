@@ -94,11 +94,9 @@
     - Every vault component has its own default path
 
 ### Vault Data Protection
-Master key protects encryption key
-
-Encryption key protects vault data
-
-Encryption key is stored in vault node memory
+Master key protects encryption key.
+Encryption key protects vault data.
+Encryption key is stored in vault node memory.
 
 - **Master Key**
     - Used to encrypt and decrypt encryption key
