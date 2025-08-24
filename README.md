@@ -83,7 +83,7 @@
 - Vault required at least one audit device to write the log before completing the vault request - if enabled
 - Prefers safety over availability
 
-#### The Encryption Barrier
+### The Encryption Barrier
 - The diagram can be seen at [Vault Docs](https://developer.hashicorp.com/vault/docs/about-vault/how-vault-works#the-encryption-barrier)
 
 **Vault Paths**
