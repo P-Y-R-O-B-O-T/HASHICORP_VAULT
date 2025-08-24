@@ -95,7 +95,9 @@
 
 ### Vault Data Protection
 Master key protects encryption key
+
 Encryption key protects vault data
+
 Encryption key is stored in vault node memory
 
 - **Master Key**
