@@ -12,7 +12,6 @@
 
 **How Vault Works?**
 - Vault has 3 interfaces: GUI, CLI, API
-
 - Authentication mechanism
 - Token for authenticated user
 
@@ -86,28 +85,28 @@
 ### The Encryption Barrier
 - The diagram can be seen at [Vault Docs](https://developer.hashicorp.com/vault/docs/about-vault/how-vault-works#the-encryption-barrier)
 
-**Vault Paths**
-- Everything in vault is path based
-- The path prefix tells vault which component a request should be routed
-- Secret engines, authentication methods and audit devices are mounted at paths
-- Paths available are dependent on features that are enabled in the vault
-- System backend is the default backend in vault which is mounted at `/sys` endpoint
-- Every vault component has its own default path
+- **Vault Paths**
+    - Everything in vault is path based
+    - The path prefix tells vault which component a request should be routed
+    - Secret engines, authentication methods and audit devices are mounted at paths
+    - Paths available are dependent on features that are enabled in the vault
+    - System backend is the default backend in vault which is mounted at `/sys` endpoint
+    - Every vault component has its own default path
 
 ### Vault Data Protection
 - Master key protects encryption key
 - Encryption key protects vault data
 - Encryption key is stored in vault node memory
 
-**Master Key**
-- Used to encrypt and decrypt encryption key
-- Never written to storage when using traditional unseal mechanism
-- Written to core/master (storage backend) when using `auto unseal`
+- **Master Key**
+    - Used to encrypt and decrypt encryption key
+    - Never written to storage when using traditional unseal mechanism
+    - Written to core/master (storage backend) when using `auto unseal`
 
-**Encryption Key**
-- Used to encrypt and decrypt the vault data written to storage backend
-- Encrypted by the master key
-- Stored alongside the data in a keyring on the storage backend
-- Can be easily rotated
+- **Encryption Key**
+    - Used to encrypt and decrypt the vault data written to storage backend
+    - Encrypted by the master key
+    - Stored alongside the data in a keyring on the storage backend
+    - Can be easily rotated
 
 <!-- --- Authentication generates a token for access for a ttl, once token is issued it is used for authentication until it is expired, permissions or the scope of token is also associated with the token -->
