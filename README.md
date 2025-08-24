@@ -126,7 +126,7 @@ Encryption key is stored in vault node memory
 > - Spyware/malware on the vault nodes
 
 **Seal and Unseal Options**
-- **Key Sharding (Sharmir algorithm)**
+- **Key Sharding (Shamir algorithm)**
     - The master key is broken into N parts and given to N people
     - While unsealing the vault,it requires a threshold of keys, threshold can be set at vault initialization
     - It is the default option
@@ -134,8 +134,41 @@ Encryption key is stored in vault node memory
     - Shards should not be stored online
 > [!NOTE]
 > We can have PGP keys of people before initialization of vault so that even if keys given by vault, the keys are only readable by respective person only. This increases the security of the key. The minimum number of keys required is equal to number of threshold
-- Cloud Auto Unseal (cloud key management like KMS)
-- Transit Auto Unseal
+
+
+| Command | Effect |
+| ------- | ------ |
+| `vault status` | See vault status |
+| `vault operator init` | Initializes vault and gives `root token`, and key shards |
+| `vault operator unseal` | Initiate vault unseal or progress it, do this until the threshold is reached |
+| `vault login ROOT_TOKEN` | Login using root token |
+| `` |  |
+| `` |  |
+| `` |  |
+| `` |  |
+| `` |  |
+
+
+- **Cloud Auto Unseal (cloud key management like KMS)**
+    - Use cloud based key management solution to encrypt and decrypt master key
+    - Master key is written to storage backend but is encrypted using cloud KMS
+    - Vault configuration file identifies the key use for decryption
+    - Cloud auto unseal automatically unseals the vault upon restart of node or service
+
+> [!NOTE]
+> Seal configuration for AWS
+> ```hcl
+> seal "awskms" {
+>     region = "REGION"
+>     kms_key_id = "KEY_ID"
+>     # Other parameters are not required if using AWS IAM roles for key access
+>     # Else AWS keys need to be specified
+>     ...
+> }
+> ```
+> Similarly it can be configured fro other major cloud providers
+
+- **Transit Auto Unseal**
 
 
 
