@@ -132,8 +132,8 @@ Encryption key is stored in vault node memory
     - It is the default option
     - No single person should have access to all those shards
     - Shards should not be stored online
-    > [!NOTE]
-    > We can have PGP keys of people before initialization of vault so that even if keys given by vault, the keys are only readable by respective person only. This increases the security of the key. The minimum number of keys required is equal to number of threshold
+> [!NOTE]
+> We can have PGP keys of people before initialization of vault so that even if keys given by vault, the keys are only readable by respective person only. This increases the security of the key. The minimum number of keys required is equal to number of threshold
 - Cloud Auto Unseal (cloud key management like KMS)
 - Transit Auto Unseal
 
