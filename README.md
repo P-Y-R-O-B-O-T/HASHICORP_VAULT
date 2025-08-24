@@ -52,36 +52,36 @@
 
 ## Vault Architecture
 ### Vault Components
-**Storage Backends**
-- Configures location for storage of vault data
-- Defined in main vault configuration file
-- Data is encrypted in transit (TLS) and at rest using AES256
-- Some storages are for high availability and others for better management and data protection
-- Only one storage backend per vault cluster
+- **Storage Backends**
+    - Configures location for storage of vault data
+    - Defined in main vault configuration file
+    - Data is encrypted in transit (TLS) and at rest using AES256
+    - Some storages are for high availability and others for better management and data protection
+    - Only one storage backend per vault cluster
 
-**Secrets Engines**
-- Manages secrets
-- Secret engines can store, generate and encrypt data
-- Many engines can connect to other services to generate dynamic credentials on demand
-- There can be multiple instances of same type of secret engine
-- Secret engines are mounted at path and all interactions are done with the path itself
+- **Secrets Engines**
+    - Manages secrets
+    - Secret engines can store, generate and encrypt data
+    - Many engines can connect to other services to generate dynamic credentials on demand
+    - There can be multiple instances of same type of secret engine
+    - Secret engines are mounted at path and all interactions are done with the path itself
 
-**Authentication methods**
-- Manages authentication and manages identities
-- Responsible for assigning identity and policies to users
-- Multiple authentication methods can be enabled 
-- There are 2 types of authentication methods classes: human and machine
-- Once authenticated, vault issues a token to the client or user to make all subsequent vault requests until TTL
-- Each token has a policy and a TTL
-- Default authentication method for vault is also token based
+- **Authentication methods**
+    - Manages authentication and manages identities
+    - Responsible for assigning identity and policies to users
+    - Multiple authentication methods can be enabled 
+    - There are 2 types of authentication methods classes: human and machine
+    - Once authenticated, vault issues a token to the client or user to make all subsequent vault requests until TTL
+    - Each token has a policy and a TTL
+    - Default authentication method for vault is also token based
 
-**Audit devices**
-- Keeps detailed log for all requests and responses to vault
-- Audit log is formatted using json
-- Sensitive info is hashed before logging
-- There can be multiple audit devices enabled
-- Vault required at least one audit device to write the log before completing the vault request - if enabled
-- Prefers safety over availability
+- **Audit devices**
+    - Keeps detailed log for all requests and responses to vault
+    - Audit log is formatted using json
+    - Sensitive info is hashed before logging
+    - There can be multiple audit devices enabled
+    - Vault required at least one audit device to write the log before completing the vault request - if enabled
+    - Prefers safety over availability
 
 ### The Encryption Barrier
 - The diagram can be seen at [Vault Docs](https://developer.hashicorp.com/vault/docs/about-vault/how-vault-works#the-encryption-barrier)
