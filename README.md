@@ -94,12 +94,13 @@
     - Every vault component has its own default path
 
 ### Vault Data Protection
-Master key protects encryption key.\
-Encryption key protects vault data.\
-Encryption key is stored in vault node memory.
+Master key protects encryption key\
+Encryption key protects vault data\
+Encryption key is stored in vault node memory
 
 - **Master Key**
     - Used to encrypt and decrypt encryption key
+    - Created using initialization and re key operations
     - Never written to storage when using traditional unseal mechanism
     - Written to core/master (storage backend) when using `auto unseal`
 
@@ -108,5 +109,48 @@ Encryption key is stored in vault node memory.
     - Encrypted by the master key
     - Stored alongside the data in a keyring on the storage backend
     - Can be easily rotated
+
+### Seal and Unseal
+- Vault starts in sealed state, meaning it knows where to access the data but can not decrypt it. Users can seal it manually as well
+- Almost no operations are possible when the vault is in sealed state (only status check and unsealing are possible)
+- Unsealing vault means that a node can reconstruct the master key in order to decrypt the encryption key, and ultimately read the data
+- After unsealing, the encryption key is stored in memory
+- Every node in the cluster should be unsealed to do any operations
+
+- Sealing vault means it throws away the encryption key and requires another unseal to perform any further operations
+
+> [!NOTE]
+> **When to seal vault?**
+> - Key shards are exposed
+> - Detection of a breach or compromise of network
+> - Spyware/malware on the vault nodes
+
+**Seal and Unseal Options**
+- **Key Sharding (Sharmir algorithm)**
+    - The master key is broken into N parts and given to N people
+    - While unsealing the vault,it requires a threshold of keys, threshold can be set at vault initialization
+    - It is the default option
+    - No single person should have access to all those shards
+    - Shards should not be stored online
+    > [!NOTE]
+    > We can have PGP keys of people before initialization of vault so that even if keys given by vault, the keys are only readable by respective person only. This increases the security of the key. The minimum number of keys required is equal to number of threshold
+- Cloud Auto Unseal (cloud key management like KMS)
+- Transit Auto Unseal
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- commands: `vault status` -->
 
 <!-- --- Authentication generates a token for access for a ttl, once token is issued it is used for authentication until it is expired, permissions or the scope of token is also associated with the token -->
