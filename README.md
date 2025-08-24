@@ -50,8 +50,8 @@
 > | Privileged | Follow principle of least privileged |
 
 
-### Vault Architecture
-#### Vault Components
+## Vault Architecture
+### Vault Components
 **Storage Backends**
 - Configures location for storage of vault data
 - Defined in main vault configuration file
@@ -94,7 +94,7 @@
 - System backend is the default backend in vault which is mounted at `/sys` endpoint
 - Every vault component has its own default path
 
-#### Vault Data Protection
+### Vault Data Protection
 - Master key protects encryption key
 - Encryption key protects vault data
 - Encryption key is stored in vault node memory
